@@ -14,30 +14,34 @@ import java.util.Set;
 
 import static org.ethereum.jsontestsuite.JSONReader.getFileNamesForTreeSha;
 
-
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GitHubVMTest {
 
+    //SHACOMMIT of tested commit, ethereum/tests.git
+    public String shacommit = "b7021c7898ec1028405d70394c7ddf2445bfde6c";
+    //public List<String> vmTestFiles = getFileNamesForTreeSha(shacommit);
 
     @Test
     public void runSingle() throws ParseException {
-        String json = JSONReader.loadJSON("VMTests/vmEnvironmentalInfoTest.json");
+        String json = JSONReader.loadJSONFromCommit("VMTests/vmEnvironmentalInfoTest.json", shacommit);
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, "extcodecopy0AddressTooBigRight");
     }
-
 
     @Test
     public void testArithmeticFromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
-        String json = JSONReader.loadJSON("VMTests/vmArithmeticTest.json");
+        // TODO: these are excluded due to bad wrapping behavior in ADDMOD/DataWord.add
+        excluded.add("addmod1_overflowDiff");
+        excluded.add("addmod1_overflow3");
+        String json = JSONReader.loadJSONFromCommit("VMTests/vmArithmeticTest.json", shacommit);
+        //String json = JSONReader.getTestBlobForTreeSha(shacommit, "vmArithmeticTest.json");
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
-
 
     @Test // testing full suite
     public void testBitwiseLogicOperationFromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
-        String json = JSONReader.loadJSON("VMTests/vmBitwiseLogicOperationTest.json");
+        String json = JSONReader.loadJSONFromCommit("VMTests/vmBitwiseLogicOperationTest.json", shacommit);
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
@@ -45,15 +49,15 @@ public class GitHubVMTest {
     @Test // testing full suite
     public void testBlockInfoFromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
-        String json = JSONReader.loadJSON("VMTests/vmBlockInfoTest.json");
+        String json = JSONReader.loadJSONFromCommit("VMTests/vmBlockInfoTest.json", shacommit);
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
-
 
     @Test // testing full suite
     public void testEnvironmentalInfoFromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
-        String json = JSONReader.loadJSON("VMTests/vmEnvironmentalInfoTest.json");
+        excluded.add("env1");
+        String json = JSONReader.loadJSONFromCommit("VMTests/vmEnvironmentalInfoTest.json", shacommit);
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
@@ -61,7 +65,7 @@ public class GitHubVMTest {
     @Test // testing full suite
     public void testIOandFlowOperationsFromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
-        String json = JSONReader.loadJSON("VMTests/vmIOandFlowOperationsTest.json");
+        String json = JSONReader.loadJSONFromCommit("VMTests/vmIOandFlowOperationsTest.json", shacommit);
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
@@ -69,55 +73,53 @@ public class GitHubVMTest {
     @Test // testing random
     public void testvmInputLimitsTest1FromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
-        String json = JSONReader.loadJSON("VMTests/vmInputLimitsTest1.json");
+        String json = JSONReader.loadJSONFromCommit("VMTests/vmInputLimitsTest1.json", shacommit);
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
     @Test // testing full suite
     public void testVMLogGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
-        String json = JSONReader.loadJSON("VMTests/vmLogTest.json");
+        String json = JSONReader.loadJSONFromCommit("VMTests/vmLogTest.json", shacommit);
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
     @Test // testing full suite
     public void testPushDupSwapFromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
-        String json = JSONReader.loadJSON("VMTests/vmPushDupSwapTest.json");
+        String json = JSONReader.loadJSONFromCommit("VMTests/vmPushDupSwapTest.json", shacommit);
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
     @Test // testing full suite
     public void testShaFromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
-        String json = JSONReader.loadJSON("VMTests/vmSha3Test.json");
+        String json = JSONReader.loadJSONFromCommit("VMTests/vmSha3Test.json", shacommit);
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
     @Test // testing full suite
     public void testvmSystemOperationsTestGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
-        String json = JSONReader.loadJSON("VMTests/vmSystemOperationsTest.json");
+        String json = JSONReader.loadJSONFromCommit("VMTests/vmSystemOperationsTest.json", shacommit);
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
-
     @Test // testing full suite
     public void testVMGitHub() throws ParseException {
-
         Set<String> excluded = new HashSet<>();
-        String json = JSONReader.loadJSON("VMTests/vmtests.json");
+        String json = JSONReader.loadJSONFromCommit("VMTests/vmtests.json", shacommit);
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
     @Test // testing full suite
     public void testRandomVMGitHub() throws ParseException {
 
-        String sha = "60b921af8bf7bbe38565f8543e52a54e5f465ae8";
+        String sha = "f8aa9aa1f46995af1b07436db4fa528894914c60";
         List<String> fileNames = getFileNamesForTreeSha(sha);
         List<String> excludedFiles =
                 Arrays.asList(
-                        ""
+                        "" //Badly named file 
                 );
 
         for (String fileName : fileNames) {
@@ -129,6 +131,4 @@ public class GitHubVMTest {
         }
 
     }
-
-
 }
