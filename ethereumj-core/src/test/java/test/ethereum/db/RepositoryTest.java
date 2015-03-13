@@ -516,7 +516,6 @@ public class RepositoryTest {
     @Test
     public void test18() {
 
-        SystemProperties.CONFIG.setDataBaseDir("test_db/" + RepositoryTest.class);
         Repository repoTrack = new RepositoryTrack(); // dummy
         Repository repoTrack2 = repoTrack.startTracking(); //track
 
