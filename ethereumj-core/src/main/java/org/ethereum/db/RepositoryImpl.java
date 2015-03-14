@@ -7,8 +7,8 @@ import org.ethereum.datasource.HashMapDB;
 import org.ethereum.facade.Repository;
 import org.ethereum.json.EtherObjectMapper;
 import org.ethereum.json.JSONHelper;
-import org.ethereum.trie.FatTrie;
 import org.ethereum.trie.Trie;
+import org.ethereum.trie.TrieManager;
 import org.ethereum.vm.DataWord;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -64,7 +64,6 @@ public class RepositoryImpl implements Repository {
     }
 
     public RepositoryImpl(KeyValueDataSource detailsDS, KeyValueDataSource stateDS) {
-
         detailsDS.setName(DETAILS_DB);
         detailsDS.init();
         this.detailsDS = detailsDS;
@@ -75,13 +74,13 @@ public class RepositoryImpl implements Repository {
 
         detailsDB = new DatabaseImpl(detailsDS);
         stateDB = new DatabaseImpl(stateDS);
-        worldState = new FatTrie(new HashMapDB(), stateDB.getDb());
+        worldState = TrieManager.createFatTrie(new HashMapDB(), stateDB.getDb());
     }
 
     public RepositoryImpl(String detailsDbName, String stateDbName) {
         detailsDB = new DatabaseImpl(detailsDbName);
         stateDB = new DatabaseImpl(stateDbName);
-        worldState = new FatTrie(new HashMapDB(), stateDB.getDb());
+        worldState = TrieManager.createFatTrie(new HashMapDB(), stateDB.getDb());
     }
 
 
@@ -94,7 +93,7 @@ public class RepositoryImpl implements Repository {
 
         stateDS.init();
         stateDB = new DatabaseImpl(stateDS);
-        worldState = new FatTrie(null, stateDB.getDb());
+        worldState = TrieManager.createFatTrie(null, stateDB.getDb());
     }
 
     @Override

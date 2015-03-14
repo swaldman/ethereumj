@@ -48,9 +48,10 @@ test {
      forkEvery 1
      maxParallelForks Runtime.runtime.availableProcessors()
 
-     // testLogging {
-     //   showStandardStreams = true
-     // }
+     testLogging {
+       //showStandardStreams = true
+       exceptionFormat = 'full'
+     }
 
      systemProperty "file.encoding", "UTF-8"
      jvmArgs '-Xss16m'
