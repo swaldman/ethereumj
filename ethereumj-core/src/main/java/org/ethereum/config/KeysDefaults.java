@@ -56,6 +56,7 @@ public final class KeysDefaults {
     final static String K_SAMPLES_DIR                 = ETHEREUMJ_PREFIX + "samples.dir";
     final static String K_TRANSACTION_APPROVE_TIMEOUT = ETHEREUMJ_PREFIX + "transaction.approve.timeout";
     final static String K_TRACE_STARTBLOCK            = ETHEREUMJ_PREFIX + "trace.startblock";
+    final static String K_TRIE_FACTORY                = ETHEREUMJ_PREFIX + "trie.factory";
     final static String K_VM_STRUCTURED_DIR           = ETHEREUMJ_PREFIX + "vm.structured.dir";
     final static String K_VM_STRUCTURED_TRACE         = ETHEREUMJ_PREFIX + "vm.structured.trace";
     final static String K_VM_TEST_LOAD_LOCAL          = ETHEREUMJ_PREFIX + "GitHubTests.VMTest.loadLocal"; //testing, this is an odd key
@@ -94,39 +95,40 @@ public final class KeysDefaults {
 	// the values below are the fallback, hard-coded default values
 	// of config params.
 	Map<String,DT> defaultsTypes = new HashMap<>();
-	defaultsTypes.put( K_BLOCKCHAIN_ONLY,             new DT( false,                    B ) );
-	defaultsTypes.put( K_COINBASE_SECRET,             new DT( "monkey",                 S ) );
-	defaultsTypes.put( K_DUMP_BLOCK,                  new DT( 0,                        I ) );
-	defaultsTypes.put( K_DUMP_CLEAN_ON_RESTART,       new DT( true,                     B ) );
-	defaultsTypes.put( K_DUMP_DIR,                    new DT( "dmp",                    S ) );
-	defaultsTypes.put( K_DUMP_FULL,                   new DT( false,                    B ) );
-	defaultsTypes.put( K_DUMP_STYLE,                  new DT( "standard+",              S ) );
-	defaultsTypes.put( K_DATABASE_DIR,                new DT( "database",               S ) );
-	defaultsTypes.put( K_DATABASE_RESET,              new DT( false,                    B ) );
-	defaultsTypes.put( K_HELLO_PHRASE,                new DT( "Dev",                    S ) );
-	defaultsTypes.put( K_KEYVALUE_DATASOURCE,         new DT( "leveldb",                S ) );
-	defaultsTypes.put( K_MAX_BLOCKS_ASK,              new DT( 10,                       I ) );
-	defaultsTypes.put( K_MAX_HASHES_ASK,              new DT( -1,                       I ) );
-	defaultsTypes.put( K_MAX_BLOCKS_QUEUED,           new DT( 300,                      I ) );
-	defaultsTypes.put( K_PEER_ACTIVE_IP,              new DT( "poc-8.ethdev.com",       S ) );
-	defaultsTypes.put( K_PEER_ACTIVE_PORT,            new DT( 30303,                    I ) );
-	defaultsTypes.put( K_PEER_CAPABILITIES,           new DT( "eth,shh",                S ) );
-	defaultsTypes.put( K_PEER_CHANNEL_READ_TIMEOUT,   new DT( 5,                        I ) );
-	defaultsTypes.put( K_PEER_CONNECTION_TIMEOUT,     new DT( 10,                       I ) );
-	defaultsTypes.put( K_PEER_DISCOVERY_ENABLED,      new DT( true,                     B ) );
-	defaultsTypes.put( K_PEER_DISCOVERY_WORKERS,      new DT( 2,                        I ) );
-	defaultsTypes.put( K_PEER_DISCOVERY_IP_LIST,      new DT( "poc-8.ethdev.com:30303", S ) );
-	defaultsTypes.put( K_PEER_LISTEN_PORT,            new DT( 30303,                    I ) );
-	defaultsTypes.put( K_PLAY_VM,                     new DT( true,                     B ) );
-	defaultsTypes.put( K_PROJECT_VERSION,             new DT( "",                       S ) );
-	defaultsTypes.put( K_RECORD_BLOCKS,               new DT( false,                    B ) );
-	defaultsTypes.put( K_ROOT_HASH_START,             new DT( -1,                       I ) );
-	defaultsTypes.put( K_SAMPLES_DIR,                 new DT( "samples",                S ) );
-	defaultsTypes.put( K_TRANSACTION_APPROVE_TIMEOUT, new DT( 10,                       I ) );
-	defaultsTypes.put( K_TRACE_STARTBLOCK,            new DT( -1,                       I ) );
-	defaultsTypes.put( K_VM_STRUCTURED_DIR,           new DT( "dmp",                    S ) );
-	defaultsTypes.put( K_VM_STRUCTURED_TRACE,         new DT( false,                    B ) );
-	defaultsTypes.put( K_VM_TEST_LOAD_LOCAL,          new DT( false,                    B ) );
+	defaultsTypes.put( K_BLOCKCHAIN_ONLY,             new DT( false,                                  B ) );
+	defaultsTypes.put( K_COINBASE_SECRET,             new DT( "monkey",                               S ) );
+	defaultsTypes.put( K_DUMP_BLOCK,                  new DT( 0,                                      I ) );
+	defaultsTypes.put( K_DUMP_CLEAN_ON_RESTART,       new DT( true,                                   B ) );
+	defaultsTypes.put( K_DUMP_DIR,                    new DT( "dmp",                                  S ) );
+	defaultsTypes.put( K_DUMP_FULL,                   new DT( false,                                  B ) );
+	defaultsTypes.put( K_DUMP_STYLE,                  new DT( "standard+",                            S ) );
+	defaultsTypes.put( K_DATABASE_DIR,                new DT( "database",                             S ) );
+	defaultsTypes.put( K_DATABASE_RESET,              new DT( false,                                  B ) );
+	defaultsTypes.put( K_HELLO_PHRASE,                new DT( "Dev",                                  S ) );
+	defaultsTypes.put( K_KEYVALUE_DATASOURCE,         new DT( "leveldb",                              S ) );
+	defaultsTypes.put( K_MAX_BLOCKS_ASK,              new DT( 10,                                     I ) );
+	defaultsTypes.put( K_MAX_HASHES_ASK,              new DT( -1,                                     I ) );
+	defaultsTypes.put( K_MAX_BLOCKS_QUEUED,           new DT( 300,                                    I ) );
+	defaultsTypes.put( K_PEER_ACTIVE_IP,              new DT( "poc-8.ethdev.com",                     S ) );
+	defaultsTypes.put( K_PEER_ACTIVE_PORT,            new DT( 30303,                                  I ) );
+	defaultsTypes.put( K_PEER_CAPABILITIES,           new DT( "eth,shh",                              S ) );
+	defaultsTypes.put( K_PEER_CHANNEL_READ_TIMEOUT,   new DT( 5,                                      I ) );
+	defaultsTypes.put( K_PEER_CONNECTION_TIMEOUT,     new DT( 10,                                     I ) );
+	defaultsTypes.put( K_PEER_DISCOVERY_ENABLED,      new DT( true,                                   B ) );
+	defaultsTypes.put( K_PEER_DISCOVERY_WORKERS,      new DT( 2,                                      I ) );
+	defaultsTypes.put( K_PEER_DISCOVERY_IP_LIST,      new DT( "poc-8.ethdev.com:30303",               S ) );
+	defaultsTypes.put( K_PEER_LISTEN_PORT,            new DT( 30303,                                  I ) );
+	defaultsTypes.put( K_PLAY_VM,                     new DT( true,                                   B ) );
+	defaultsTypes.put( K_PROJECT_VERSION,             new DT( "",                                     S ) );
+	defaultsTypes.put( K_RECORD_BLOCKS,               new DT( false,                                  B ) );
+	defaultsTypes.put( K_ROOT_HASH_START,             new DT( -1,                                     I ) );
+	defaultsTypes.put( K_SAMPLES_DIR,                 new DT( "samples",                              S ) );
+	defaultsTypes.put( K_TRANSACTION_APPROVE_TIMEOUT, new DT( 10,                                     I ) );
+	defaultsTypes.put( K_TRACE_STARTBLOCK,            new DT( -1,                                     I ) );
+	defaultsTypes.put( K_TRIE_FACTORY    ,            new DT( "org.ethereum.trie.DefaultTrieFactory", S ) );
+	defaultsTypes.put( K_VM_STRUCTURED_DIR,           new DT( "dmp",                                  S ) );
+	defaultsTypes.put( K_VM_STRUCTURED_TRACE,         new DT( false,                                  B ) );
+	defaultsTypes.put( K_VM_TEST_LOAD_LOCAL,          new DT( false,                                  B ) );
 
 	Map<String,Object> tmpDefaults = new HashMap<>();
 	for ( Map.Entry<String,DT> entry : defaultsTypes.entrySet() ) tmpDefaults.put( entry.getKey(), entry.getValue().dflt );
@@ -190,6 +192,7 @@ public final class KeysDefaults {
 	public static String samplesDir()                { return K_SAMPLES_DIR; }
 	public static String transactionApproveTimeout() { return K_TRANSACTION_APPROVE_TIMEOUT; }
 	public static String traceStartblock()           { return K_TRACE_STARTBLOCK; }
+	public static String trieFactory()               { return K_TRIE_FACTORY; }
 	public static String vmStructuredDir()           { return K_VM_STRUCTURED_DIR; }
 	public static String vmStructuredTrace()         { return K_VM_STRUCTURED_TRACE; }
 	public static String vmTestLoadLocal()           { return K_VM_TEST_LOAD_LOCAL; }

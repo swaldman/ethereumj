@@ -1,14 +1,29 @@
 package org.ethereum.trie;
 
 import org.ethereum.datasource.KeyValueDataSource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static org.ethereum.config.SystemProperties.CONFIG;
 import static org.ethereum.crypto.HashUtil.EMPTY_TRIE_HASH;
 
 public final class TrieManager {
 
+    private static final Logger logger = LoggerFactory.getLogger("trie");
+
     final static TrieFactory FACTORY;
 
     static {
-	FACTORY = new DefaultTrieFactory();
+	String fqcn = CONFIG.trieFactory();
+	TrieFactory tmp;
+	try { tmp = (TrieFactory) Class.forName( fqcn ).newInstance(); }
+	catch ( Exception e ) {
+	    if ( logger.isWarnEnabled() )
+		logger.warn("Failed to instantiate desired TrieFactory '" + fqcn + "'. Using default.", e ); 
+	    tmp = new DefaultTrieFactory();
+	}
+	FACTORY = tmp;
     }
 
     public static Trie createSimpleTrie( KeyValueDataSource db, byte[] rootHash ) {

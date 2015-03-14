@@ -124,6 +124,7 @@ public class SystemProperties {
     public String  samplesDir()                { return getString( K_SAMPLES_DIR ); }
     public int     transactionApproveTimeout() { return getInt( K_TRANSACTION_APPROVE_TIMEOUT ); }
     public int     traceStartBlock()           { return getInt( K_TRACE_STARTBLOCK ); }
+    public String  trieFactory()               { return getString( K_TRIE_FACTORY ); }
     public boolean vmTrace()                   { return getBoolean( K_VM_STRUCTURED_TRACE ); }
     public String  vmTraceDir()                { return getString( K_VM_STRUCTURED_DIR ); }
     public boolean vmTestLoadLocal()           { return getBoolean( K_VM_TEST_LOAD_LOCAL ); }
