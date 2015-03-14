@@ -8,7 +8,7 @@ import org.ethereum.crypto.HashUtil;
 import org.ethereum.datasource.HashMapDB;
 import org.ethereum.db.ByteArrayWrapper;
 import org.ethereum.trie.Trie;
-import org.ethereum.trie.TrieImpl;
+import org.ethereum.trie.TrieManager;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -117,7 +117,7 @@ public class StateTest {
 
     private Trie generateGenesisState() {
 
-        Trie trie = new TrieImpl(new HashMapDB());
+        Trie trie = TrieManager.createSimpleTrie(new HashMapDB());
         Genesis genesis = (Genesis)Genesis.getInstance();
         for (ByteArrayWrapper key : genesis.getPremine().keySet()) {
             trie.update(key.getData(), genesis.getPremine().get(key).getEncoded());

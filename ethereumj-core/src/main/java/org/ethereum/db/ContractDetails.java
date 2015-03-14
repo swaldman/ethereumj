@@ -1,7 +1,7 @@
 package org.ethereum.db;
 
 import org.ethereum.trie.Trie;
-import org.ethereum.trie.TrieImpl;
+import org.ethereum.trie.TrieManager;
 import org.ethereum.util.ByteUtil;
 import org.ethereum.util.RLP;
 import org.ethereum.util.RLPElement;
@@ -33,7 +33,7 @@ public class ContractDetails {
     private boolean dirty = false;
     private boolean deleted = false;
 
-    private Trie storageTrie = new TrieImpl(null);
+    private Trie storageTrie = TrieManager.createSimpleTrie();
 
     public ContractDetails() {
     }
@@ -96,7 +96,7 @@ public class ContractDetails {
 
     public byte[] getStorageHash() {
 
-        storageTrie = new TrieImpl(null);
+        storageTrie = TrieManager.createSimpleTrie();
         // calc the trie for root hash
         for (int i = 0; i < storageKeys.size(); ++i) {
             storageTrie.update(storageKeys.get(i).getData(), RLP

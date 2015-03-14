@@ -3,7 +3,7 @@ package org.ethereum.core;
 import org.ethereum.crypto.HashUtil;
 import org.ethereum.crypto.SHA3Helper;
 import org.ethereum.trie.Trie;
-import org.ethereum.trie.TrieImpl;
+import org.ethereum.trie.TrieManager;
 import org.ethereum.util.ByteUtil;
 import org.ethereum.util.FastByteComparisons;
 import org.ethereum.util.RLP;
@@ -291,7 +291,7 @@ public class Block {
 
     private void parseTxs(byte[] expectedRoot, RLPList txTransactions) {
 
-        this.txsState = new TrieImpl(null);
+        this.txsState = TrieManager.createSimpleTrie();
         for (int i = 0; i < txTransactions.size(); i++) {
             RLPElement transactionRaw = txTransactions.get(i);
             this.transactionsList.add(new Transaction(transactionRaw.getRLPData()));

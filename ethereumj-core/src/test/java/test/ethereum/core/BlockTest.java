@@ -5,8 +5,8 @@ import org.ethereum.config.SystemProperties;
 import org.ethereum.core.*;
 import org.ethereum.facade.Blockchain;
 import org.ethereum.manager.WorldManager;
-import org.ethereum.trie.SecureTrie;
 import org.ethereum.trie.Trie;
+import org.ethereum.trie.TrieManager;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -127,7 +127,7 @@ public class BlockTest {
 
         Set<String> keys = genesisMap.keySet();
 
-        Trie state = new SecureTrie(null);
+        Trie state = TrieManager.createSecureTrie();
 
         for (String key : keys) {
 
