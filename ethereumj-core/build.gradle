@@ -65,6 +65,7 @@ test {
 
         systemProperty( 'ethereumj.database.dir', "test_db/db" + counter.incrementAndGet() )
      }
+
 }
 
 configurations {
@@ -106,7 +107,7 @@ dependencies {
     compile "commons-dbcp:commons-dbcp:1.4"
     compile "redis.clients:jedis:2.6.0"
     compile "com.typesafe:config:1.2.1"
-
+    compile "com.mchange:consuela-ethereumj_2.11:0.0.1-SNAPSHOT"
     compile("com.googlecode.json-simple:json-simple:1.1.1") {
         exclude group: 'junit', module: 'junit'
     }
@@ -116,6 +117,7 @@ dependencies {
     optional "log4j:apache-log4j-extras:${log4jVersion}"
     testCompile "junit:junit:${junitVersion}"
     testCompile "org.springframework:spring-test:${springVersion}"
+    testRuntime "org.bouncycastle:bcprov-jdk15on:1.51"
 
     // stuff to bring up an interactive console, see
     // http://stackoverflow.com/questions/22567831/gradle-execute-groovy-interactive-shell-with-project-classpath
@@ -124,6 +126,7 @@ dependencies {
         exclude(group: 'junit', module: 'junit')
     }
     console 'org.codehaus.groovy:groovy-groovysh:2.2.+'
+    console 'org.bouncycastle:bcprov-jdk15on:1.51'
 }
 
 javadoc {
