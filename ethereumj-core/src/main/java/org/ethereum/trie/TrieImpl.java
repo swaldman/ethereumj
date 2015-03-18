@@ -105,6 +105,8 @@ public class TrieImpl implements Trie {
 
     /**
      * Retrieve a value from a key as String.
+     *
+     * @return the value, or an empty byte[] if not present
      */
     public byte[] get(String key) {
         return this.get(key.getBytes());

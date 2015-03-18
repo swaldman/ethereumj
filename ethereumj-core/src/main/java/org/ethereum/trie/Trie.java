@@ -10,7 +10,7 @@ public interface Trie {
      * Gets a value from the trie for a given key
      *
      * @param key - any length byte array
-     * @return an rlp encoded byte array of the stored object
+     * @return an rlp encoded byte array of the stored object, or an empty byte array if not present
      */
     public byte[] get(byte[] key);
 
@@ -57,4 +57,15 @@ public interface Trie {
 
     public boolean validate();
 
+    /**
+     * Should be overridden so that two tries
+     * with the same root hash are equal
+     */
+    public boolean equals( Object o );
+
+    /**
+     * Should be overridden so to be
+     * consistent with equals(...)
+     */
+    public int hashCode();
 }
