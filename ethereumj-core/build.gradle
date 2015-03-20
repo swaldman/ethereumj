@@ -73,6 +73,10 @@ configurations {
     console
 }
 
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds' // we're actively developing some of the SNAPSHOT dependencies, we gotta download the latest
+}
+
 ext {
     slf4jVersion = '1.7.7'
     leveldbVersion = '0.7'
