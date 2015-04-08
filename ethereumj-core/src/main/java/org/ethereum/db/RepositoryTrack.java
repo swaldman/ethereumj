@@ -60,7 +60,6 @@ public class RepositoryTrack implements Repository {
 
         if (accountState == null) {
             repository.loadAccount(addr, cacheAccounts, cacheDetails);
-
             accountState = cacheAccounts.get(wrap(addr));
         }
         return accountState;
@@ -72,8 +71,11 @@ public class RepositoryTrack implements Repository {
         AccountState accountState = cacheAccounts.get(wrap(addr));
         if (accountState != null) return !accountState.isDeleted();
 
-        return repository.isExist(addr);
+        accountState = repository.getAccountState(addr);
+        return accountState != null && !accountState.isDeleted();
+
     }
+
 
     @Override
     public ContractDetails getContractDetails(byte[] addr) {
@@ -288,3 +290,4 @@ public class RepositoryTrack implements Repository {
     }
 
 }
+

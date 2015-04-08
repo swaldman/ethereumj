@@ -309,7 +309,7 @@ public class Program {
         if (logger.isInfoEnabled())
             logger.info("Transfer to: [{}] heritage: [{}]",
                     Hex.toHexString(obtainer.getLast20Bytes()),
-                    balance.bigIntValue());
+                    balance.longValue());
 
         this.result.getRepository().addBalance(obtainer.getLast20Bytes(), balance.value());
         this.result.getRepository().addBalance(this.getOwnerAddress().getLast20Bytes(), balance.value().negate());
@@ -412,7 +412,7 @@ public class Program {
             track.saveCode(newAddress, EMPTY_BYTE_ARRAY);
         } else {
 
-            result.spendGas(code.length * GasCost.CREATE_DATA);
+            result.spendGas(code.length * GasCost.CREATE_DATA_BYTE);
             track.saveCode(newAddress, code);
         }
 
@@ -492,6 +492,9 @@ public class Program {
                     msg.getGas().getNoLeadZeroesData(),
                     msg.getEndowment().getNoLeadZeroesData());
         }
+
+        //  actual gas subtract
+        this.spendGas(msg.getGas().longValue(), "internal call");
 
         Repository trackRepository = result.getRepository().startTracking();
         ProgramInvoke programInvoke = programInvokeFactory.createProgramInvoke(
@@ -954,11 +957,11 @@ public class Program {
         long requiredGas = contract.getGasForData(data);
         if (requiredGas > msg.getGas().longValue()) {
 
-            this.refundGas(0, "call pre-compiled"); //matches cpp logic
+            this.spendGas(msg.getGas().longValue(), "call pre-compiled");
             this.stackPushZero();
         } else {
 
-            this.refundGas(msg.getGas().longValue() - requiredGas, "call pre-compiled");
+            this.spendGas(requiredGas, "call pre-compiled");
             byte[] out = contract.execute(data);
 
             this.memorySave(msg.getOutDataOffs().intValue(), out);
@@ -1011,3 +1014,4 @@ public class Program {
 
 
 }
+

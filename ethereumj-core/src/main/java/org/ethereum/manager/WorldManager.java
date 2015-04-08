@@ -3,7 +3,6 @@ package org.ethereum.manager;
 import org.ethereum.core.*;
 import org.ethereum.crypto.HashUtil;
 import org.ethereum.db.BlockStore;
-import org.ethereum.db.ByteArrayWrapper;
 import org.ethereum.facade.Blockchain;
 import org.ethereum.facade.Repository;
 import org.ethereum.listener.EthereumListener;
@@ -208,3 +207,4 @@ public class WorldManager {
         blockchain.close();
     }
 }
+

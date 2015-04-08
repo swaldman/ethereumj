@@ -18,21 +18,19 @@ import static org.ethereum.jsontestsuite.JSONReader.getFileNamesForTreeSha;
 public class GitHubVMTest {
 
     //SHACOMMIT of tested commit, ethereum/tests.git
-    public String shacommit = "b7021c7898ec1028405d70394c7ddf2445bfde6c";
+    public String shacommit = "eecee75336681dc8c0b7a2423997178eb2101f4e";
     //public List<String> vmTestFiles = getFileNamesForTreeSha(shacommit);
 
-    @Ignore
     @Test
     public void runSingle() throws ParseException {
         String json = JSONReader.loadJSONFromCommit("VMTests/vmEnvironmentalInfoTest.json", shacommit);
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, "balance0");
     }
 
-    @Ignore
     @Test
+    @Ignore
     public void testArithmeticFromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
-        // TODO: these are excluded due to bad wrapping behavior in ADDMOD/DataWord.add
         excluded.add("addmod1_overflowDiff");
         excluded.add("addmod1_overflow3");
         String json = JSONReader.loadJSONFromCommit("VMTests/vmArithmeticTest.json", shacommit);
@@ -40,7 +38,6 @@ public class GitHubVMTest {
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
-    @Ignore
     @Test // testing full suite
     public void testBitwiseLogicOperationFromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
@@ -48,7 +45,7 @@ public class GitHubVMTest {
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
-    @Ignore
+
     @Test // testing full suite
     public void testBlockInfoFromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
@@ -56,16 +53,16 @@ public class GitHubVMTest {
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
-    @Ignore
+
     @Test // testing full suite
     public void testEnvironmentalInfoFromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
-        excluded.add("env1");
+        excluded.add("env1"); //Bug in test runner- this passes if VM logging is on "ALL"
         String json = JSONReader.loadJSONFromCommit("VMTests/vmEnvironmentalInfoTest.json", shacommit);
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
-    @Ignore
+
     @Test // testing full suite
     public void testIOandFlowOperationsFromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
@@ -81,7 +78,6 @@ public class GitHubVMTest {
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
-    @Ignore
     @Test // testing full suite
     public void testVMLogGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
@@ -89,7 +85,6 @@ public class GitHubVMTest {
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
-    @Ignore
     @Test // testing full suite
     public void testPushDupSwapFromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
@@ -97,7 +92,6 @@ public class GitHubVMTest {
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
-    @Ignore
     @Test // testing full suite
     public void testShaFromGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
@@ -113,7 +107,7 @@ public class GitHubVMTest {
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
-    @Ignore
+
     @Test // testing full suite
     public void testVMGitHub() throws ParseException {
         Set<String> excluded = new HashSet<>();
@@ -121,15 +115,14 @@ public class GitHubVMTest {
         GitHubJSONTestSuite.runGitHubJsonVMTest(json, excluded);
     }
 
-    @Ignore
     @Test // testing full suite
     public void testRandomVMGitHub() throws ParseException {
 
-        String sha = "f8aa9aa1f46995af1b07436db4fa528894914c60";
+        String sha = "60b921af8bf7bbe38565f8543e52a54e5f465ae8";
         List<String> fileNames = getFileNamesForTreeSha(sha);
         List<String> excludedFiles =
                 Arrays.asList(
-		    "201501150842LARGE_DATA_IN_CALLCREATE_GOjson" //Badly named file
+                        "201501150842LARGE_DATA_IN_CALLCREATE_GOjson" //Badly named file
                 );
 
         for (String fileName : fileNames) {
@@ -141,4 +134,6 @@ public class GitHubVMTest {
         }
 
     }
+
 }
+

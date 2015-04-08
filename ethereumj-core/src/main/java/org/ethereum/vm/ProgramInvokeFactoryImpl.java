@@ -178,7 +178,7 @@ public class ProgramInvokeFactoryImpl implements ProgramInvokeFactory {
                     timestamp.longValue(),
                     number.longValue(),
                     Hex.toHexString(difficulty.getNoLeadZeroesData()),
-                    gasLimit.bigIntValue());
+                    gasLimit.longValue());
         }
 
         return new ProgramInvokeImpl(address, origin, caller, balance, gasPrice, gas, callValue,
@@ -186,3 +186,4 @@ public class ProgramInvokeFactoryImpl implements ProgramInvokeFactory {
                 repository, program.invokeData.getCallDeep() + 1, blockStore, byTestingSuite);
     }
 }
+

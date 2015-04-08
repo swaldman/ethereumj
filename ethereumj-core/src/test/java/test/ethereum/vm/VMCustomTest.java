@@ -9,7 +9,6 @@ import org.ethereum.vm.VM;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -485,7 +484,6 @@ public class VMCustomTest {
         assertEquals(s_expected_1, Hex.toHexString(item1.getData()).toUpperCase());
     }
 
-    @Ignore //TODO #POC9
     @Test // GAS OP
     public void testGAS_1() {
 
@@ -566,3 +564,4 @@ public class VMCustomTest {
  61778e600054
 
  */
+

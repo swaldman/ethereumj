@@ -26,7 +26,6 @@ import static org.junit.Assert.assertEquals;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class VMComplexTest {
 
-    @Ignore //TODO #POC9
     @Test // contract call recursive
     public void test1() {
 
@@ -99,7 +98,6 @@ public class VMComplexTest {
         assertEquals(expectedGas, program.getResult().getGasUsed());
     }
 
-    @Ignore //TODO #POC9
     @Test // contractB call contractA with data to storage
     public void test2() {
 
@@ -428,7 +426,6 @@ public class VMComplexTest {
     }
 
     //sha3_memSizeQuadraticCost33
-    @Ignore //TODO #POC9
     @Test // contract call quadratic memory use
     public void test7() {
 
@@ -487,7 +484,6 @@ public class VMComplexTest {
     }
 
     //sha3_memSizeQuadraticCost31
-    @Ignore //TODO #POC9
     @Test // contract call quadratic memory use
     public void test8() {
 
@@ -546,7 +542,6 @@ public class VMComplexTest {
     }
 
     //sha3_memSizeQuadraticCost32
-    @Ignore //TODO #POC9
     @Test // contract call quadratic memory use
     public void test9() {
 
@@ -605,7 +600,6 @@ public class VMComplexTest {
     }
 
     //sha3_memSizeQuadraticCost32_zeroSize
-    @Ignore //TODO #POC9
     @Test // contract call quadratic memory use
     public void test10() {
 
@@ -663,3 +657,4 @@ public class VMComplexTest {
         assertEquals(expectedGas, program.getResult().getGasUsed());
     }
 }
+

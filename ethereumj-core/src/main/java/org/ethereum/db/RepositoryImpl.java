@@ -3,7 +3,6 @@ package org.ethereum.db;
 import org.ethereum.core.AccountState;
 import org.ethereum.core.Block;
 import org.ethereum.datasource.KeyValueDataSource;
-import org.ethereum.datasource.HashMapDB;
 import org.ethereum.facade.Repository;
 import org.ethereum.json.EtherObjectMapper;
 import org.ethereum.json.JSONHelper;
@@ -19,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import org.spongycastle.util.encoders.Hex;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.FileSystemUtils;
 
 import java.io.BufferedWriter;
@@ -64,6 +64,7 @@ public class RepositoryImpl implements Repository {
     }
 
     public RepositoryImpl(KeyValueDataSource detailsDS, KeyValueDataSource stateDS) {
+
         detailsDS.setName(DETAILS_DB);
         detailsDS.init();
         this.detailsDS = detailsDS;
@@ -74,13 +75,13 @@ public class RepositoryImpl implements Repository {
 
         detailsDB = new DatabaseImpl(detailsDS);
         stateDB = new DatabaseImpl(stateDS);
-        worldState = TrieManager.createFatTrie(new HashMapDB(), stateDB.getDb());
+        worldState = TrieManager.createSimpleTrie(stateDB.getDb());
     }
 
     public RepositoryImpl(String detailsDbName, String stateDbName) {
         detailsDB = new DatabaseImpl(detailsDbName);
         stateDB = new DatabaseImpl(stateDbName);
-        worldState = TrieManager.createFatTrie(new HashMapDB(), stateDB.getDb());
+        worldState = TrieManager.createSimpleTrie(stateDB.getDb());
     }
 
 
@@ -93,7 +94,7 @@ public class RepositoryImpl implements Repository {
 
         stateDS.init();
         stateDB = new DatabaseImpl(stateDS);
-        worldState = TrieManager.createFatTrie(null, stateDB.getDb());
+        worldState = TrieManager.createSimpleTrie(stateDB.getDb());
     }
 
     @Override
@@ -475,3 +476,5 @@ public class RepositoryImpl implements Repository {
         return worldState.getRootHash();
     }
 }
+
+

@@ -92,21 +92,9 @@ public class VM {
 
             String hint = "";
             long callGas = 0, memWords = 0; // parameters for logging
-            long gasCost = op.getTier().asInt();
+            long gasCost = GasCost.STEP;
             long gasBefore = program.getGas().longValue();
             int stepBefore = program.getPC();
-
-            /*DEBUG #POC9 if( op.asInt() == 96 || op.asInt() == -128 || op.asInt() == 57 || op.asInt() == 115) {
-              //byte alphaone = 0x63;
-              //op = OpCode.code(alphaone);
-              gasCost = 3;
-            }
-
-            if( op.asInt() == -13 ) {
-              //byte alphaone = 0x63;
-              //op = OpCode.code(alphaone);
-              gasCost = 0;
-            }*/
 
             // Calculate fees and spend gas
             switch (op) {
@@ -119,13 +107,13 @@ public class VM {
                     DataWord newValue = stack.get(stack.size() - 2);
                     DataWord oldValue = program.storageLoad(stack.peek());
                     if (oldValue == null && !newValue.isZero())
-                        gasCost = GasCost.SET_SSTORE;
+                        gasCost = GasCost.SSTORE;
                     else if (oldValue != null && newValue.isZero()) {
                         // todo: GASREFUND counter policy
 
                         // refund step cost policy.
                         program.futureRefundGas(GasCost.REFUND_SSTORE);
-                        gasCost = GasCost.CLEAR_SSTORE;
+                        gasCost = 0;
                     } else
                         gasCost = GasCost.RESET_SSTORE;
                     break;
@@ -147,7 +135,6 @@ public class VM {
                     newMemSize = memNeeded(stack.peek(), new DataWord(32));
                     break;
                 case RETURN:
-                    gasCost = GasCost.STOP; //rename?
                     newMemSize = memNeeded(stack.peek(), stack.get(stack.size() - 2));
                     break;
                 case SHA3:
@@ -176,20 +163,7 @@ public class VM {
                     if (callGasWord.compareTo(program.getGas()) == 1) {
                         throw program.new OutOfGasException();
                     }
-
-                    DataWord callAddressWord = stack.get(stack.size() - 2);
-
-                    //check to see if account does not exist and is not a precompiled contract
-                    //TODO #POC9 isExist() is broken.
-                    if (op != CALLCODE && !program.result.getRepository().isExist(callAddressWord.getLast20Bytes()))
-                      gasCost += GasCost.NEW_ACCT_CALL;
-
-                    //TODO #POC9 Make sure this is converted to BigInteger (256num support)
-                    if (stack.get(stack.size() - 3).intValue() > 0 )
-                      gasCost += GasCost.VT_CALL;
-
                     callGas = callGasWord.longValue();
-                    gasCost += callGas;
                     BigInteger in = memNeeded(stack.get(stack.size() - 4), stack.get(stack.size() - 5)); // in offset+size
                     BigInteger out = memNeeded(stack.get(stack.size() - 6), stack.get(stack.size() - 7)); // out offset+size
                     newMemSize = in.max(out);
@@ -226,8 +200,6 @@ public class VM {
                 default:
                     break;
             }
-
-            //DEBUG System.out.println(" OP IS " + op.name() + " GASCOST IS " + gasCost + " NUM IS " + op.asInt());
             program.spendGas(gasCost, op.name());
 
             // Avoid overflows
@@ -237,11 +209,8 @@ public class VM {
             // memory gas calc
             long memoryUsage = (newMemSize.longValue() + 31) / 32 * 32;
             if (memoryUsage > oldMemSize) {
-                memWords = (memoryUsage / 32);
-                long memWordsOld = (oldMemSize / 32);
-                //TODO #POC9 c_quadCoeffDiv = 512, this should be a constant, not magic number
-                long memGas = ( GasCost.MEMORY * memWords + memWords * memWords / 512)
-                              - (GasCost.MEMORY * memWordsOld + memWordsOld * memWordsOld / 512);
+                memWords = (memoryUsage - oldMemSize) / 32;
+                long memGas = GasCost.MEMORY * (memWords + memWords * memWords / 1024);
                 program.spendGas(memGas, op.name() + " (memory usage)");
                 gasCost += memGas;
             }
@@ -1057,9 +1026,6 @@ public class VM {
                     DataWord codeAddress = program.stackPop();
                     DataWord value = program.stackPop();
 
-                    if( value.intValue() > 0)
-                      gas = new DataWord(gas.intValue() + GasCost.STIPEND_CALL);
-
                     DataWord inDataOffs = program.stackPop();
                     DataWord inDataSize = program.stackPop();
 
@@ -1249,3 +1215,4 @@ public class VM {
         }
     }
 }
+

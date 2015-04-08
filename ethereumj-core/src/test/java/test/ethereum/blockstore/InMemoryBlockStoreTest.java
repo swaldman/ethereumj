@@ -18,7 +18,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
 
-import org.junit.Ignore;
 import static org.junit.Assert.*;
 
 /**
@@ -49,7 +48,6 @@ public class InMemoryBlockStoreTest {
         }
     }
 
-    @Ignore //TODO #POC9
     @Test
     public void testSaving8001Blocks() {
 
@@ -71,7 +69,7 @@ public class InMemoryBlockStoreTest {
         assertTrue(block8500.getNumber() == 7500);
     }
     
-    @Ignore //TODO #POC9
+    
     @Test
     public void testListOfHashes(){
         
@@ -91,3 +89,4 @@ public class InMemoryBlockStoreTest {
     
     
 }
+

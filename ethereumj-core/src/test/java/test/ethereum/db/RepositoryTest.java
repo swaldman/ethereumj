@@ -5,9 +5,7 @@ import org.ethereum.core.Genesis;
 import org.ethereum.core.PremineRaw;
 import org.ethereum.crypto.HashUtil;
 import org.ethereum.datasource.LevelDbDataSource;
-import org.ethereum.db.ByteArrayWrapper;
 import org.ethereum.db.RepositoryImpl;
-import org.ethereum.db.RepositoryTrack;
 import org.ethereum.facade.Repository;
 import org.ethereum.vm.DataWord;
 
@@ -510,31 +508,6 @@ public class RepositoryTest {
 
         Assert.assertEquals(Hex.toHexString(HashUtil.EMPTY_TRIE_HASH), Hex.toHexString(repository.getRoot()));
         repository.close();
-    }
-
-    @Test
-    public void test18() {
-
-        Repository repoTrack = new RepositoryTrack(); // dummy
-        Repository repoTrack2 = repoTrack.startTracking(); //track
-
-        byte[] cow = Hex.decode("CD2A3D9F938E13CD947EC05ABC7FE734DF8DD826");
-        byte[] horse = Hex.decode("13978AEE95F38490E9769C39B2773ED763D9CD5F");
-        byte[] pig = Hex.decode("F0B8C9D84DD2B877E0B952130B73E218106FEC04");
-        byte[] precompiled = Hex.decode("0000000000000000000000000000000000000002");
-
-        byte[] cowCode = Hex.decode("A1A2A3");
-        byte[] horseCode = Hex.decode("B1B2B3");
-
-        repoTrack.saveCode(cow, cowCode);
-        repoTrack.saveCode(horse, horseCode);
-
-        repoTrack.delete(horse);
-
-        assertEquals(true, repoTrack2.isExist(cow));
-        assertEquals(false, repoTrack2.isExist(horse)); 
-        assertEquals(false, repoTrack2.isExist(pig)); 
-        assertEquals(false, repoTrack2.isExist(precompiled)); 
     }
 
 }

@@ -2350,7 +2350,7 @@ public class VMTest {
         assertEquals(expectedSteps, i);
     }
 
-    @Ignore //TODO #POC9
+
     @Test // EXP OP
     public void testEXP_1() {
 
@@ -2369,7 +2369,6 @@ public class VMTest {
         assertEquals(4, gas);
     }
 
-    @Ignore //TODO #POC9
     @Test // EXP OP
     public void testEXP_2() {
 
@@ -2388,7 +2387,6 @@ public class VMTest {
         assertEquals(3, gas);
     }
 
-    @Ignore //TODO #POC9
     @Test // EXP OP
     public void testEXP_3() {
 
@@ -2501,7 +2499,7 @@ public class VMTest {
         assertTrue(program.isStopped());
     }
 
-    @Ignore //TODO #POC9
+
     @Test // CODECOPY OP
     public void testCODECOPY_1() {
 
@@ -2520,7 +2518,6 @@ public class VMTest {
         assertEquals(6, gas);
     }
 
-    @Ignore //TODO #POC9
     @Test // CODECOPY OP
     public void testCODECOPY_2() {
 
@@ -2542,7 +2539,6 @@ public class VMTest {
         assertEquals(10, gas);
     }
 
-    @Ignore //TODO #POC9
     @Test // CODECOPY OP
     public void testCODECOPY_3() {
 
@@ -2564,7 +2560,6 @@ public class VMTest {
         assertEquals(10, program.getResult().getGasUsed());
     }
 
-    @Ignore //TODO #POC9
     @Test // CODECOPY OP
     public void testCODECOPY_4() {
 
@@ -2902,3 +2897,4 @@ public class VMTest {
  61778e600054
 
  */
+
