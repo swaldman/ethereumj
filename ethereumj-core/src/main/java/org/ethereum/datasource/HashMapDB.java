@@ -26,8 +26,9 @@ public class HashMapDB implements KeyValueDataSource {
 
 
     @Override
-    public synchronized void put(byte[] key, byte[] value) throws DBException {
+    public synchronized byte[] put(byte[] key, byte[] value) throws DBException {
         storage.put(new ByteArrayWrapper(key), value);
+	return value;
     }
 
     /**

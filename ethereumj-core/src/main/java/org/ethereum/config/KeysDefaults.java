@@ -52,6 +52,7 @@ public final class KeysDefaults {
     final static String K_PLAY_VM                     = ETHEREUMJ_PREFIX + "play.vm";
     final static String K_PROJECT_VERSION             = ETHEREUMJ_PREFIX + "project.version";
     final static String K_RECORD_BLOCKS               = ETHEREUMJ_PREFIX + "record.blocks";
+    final static String K_REDIS_ENABLED               = ETHEREUMJ_PREFIX + "redis.enabled";
     final static String K_ROOT_HASH_START             = ETHEREUMJ_PREFIX + "root.hash.start";
     final static String K_SAMPLES_DIR                 = ETHEREUMJ_PREFIX + "samples.dir";
     final static String K_TRANSACTION_APPROVE_TIMEOUT = ETHEREUMJ_PREFIX + "transaction.approve.timeout";
@@ -121,6 +122,7 @@ public final class KeysDefaults {
 	defaultsTypes.put( K_PLAY_VM,                     new DT( true,                                   B ) );
 	defaultsTypes.put( K_PROJECT_VERSION,             new DT( "",                                     S ) );
 	defaultsTypes.put( K_RECORD_BLOCKS,               new DT( false,                                  B ) );
+	defaultsTypes.put( K_REDIS_ENABLED,               new DT( false,                                  B ) );
 	defaultsTypes.put( K_ROOT_HASH_START,             new DT( -1,                                     I ) );
 	defaultsTypes.put( K_SAMPLES_DIR,                 new DT( "samples",                              S ) );
 	defaultsTypes.put( K_TRANSACTION_APPROVE_TIMEOUT, new DT( 10,                                     I ) );
@@ -188,6 +190,7 @@ public final class KeysDefaults {
 	public static String playVM()                    { return K_PLAY_VM; }
 	public static String projectVersion()            { return K_PROJECT_VERSION; }
 	public static String recordBlocks()              { return K_RECORD_BLOCKS; }
+	public static String redisEnabled()              { return K_REDIS_ENABLED; }
 	public static String rootHashStart()             { return K_ROOT_HASH_START; }
 	public static String samplesDir()                { return K_SAMPLES_DIR; }
 	public static String transactionApproveTimeout() { return K_TRANSACTION_APPROVE_TIMEOUT; }

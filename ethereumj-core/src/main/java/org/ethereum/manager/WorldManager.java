@@ -143,10 +143,10 @@ public class WorldManager {
         Block bestBlock = blockStore.getBestBlock();
         if (bestBlock == null) {
             logger.info("DB is empty - adding Genesis");
-            Genesis genesis = (Genesis)Genesis.getInstance();
-            for (ByteArrayWrapper key : genesis.getPremine().keySet()) {
-                repository.createAccount(key.getData());
-                repository.addBalance(key.getData(), genesis.getPremine().get(key).getBalance());
+
+            for (PremineRaw raw : Genesis.getPremine()) {
+                repository.createAccount(raw.getAddr());
+                repository.addBalance(raw.getAddr(), raw.getValue().multiply(raw.getDenomination().value()));
             }
 
             blockStore.saveBlock(Genesis.getInstance(), new ArrayList<TransactionReceipt>());

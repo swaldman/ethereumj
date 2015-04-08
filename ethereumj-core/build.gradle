@@ -45,6 +45,7 @@ class Counter {
 Counter counter = new Counter();
 
 test {
+
      forkEvery 1
      maxParallelForks Runtime.runtime.availableProcessors()
 
@@ -66,6 +67,16 @@ test {
         systemProperty( 'ethereumj.database.dir', "test_db/db" + counter.incrementAndGet() )
      }
 
+    //useTestNG()
+
+    jvmArgs '-Xss16m'
+
+    testLogging {
+        events "failed"
+        exceptionFormat "short"
+    }
+
+    systemProperty "file.encoding", "UTF-8"
 }
 
 configurations {
@@ -90,6 +101,7 @@ ext {
 dependencies {
     compile "io.netty:netty-all:4.0.23.Final"
     compile "com.madgag.spongycastle:core:${scastleVersion}" // for SHA3 and SECP256K1
+    compile "com.madgag.spongycastle:prov:${scastleVersion}" // for SHA3 and SECP256K1
     compile "org.iq80.leveldb:leveldb:${leveldbVersion}"
     compile "com.cedarsoftware:java-util:1.8.0" // for deep equals
     compile "org.antlr:antlr4-runtime:4.5" // for serpent compilation
@@ -111,7 +123,6 @@ dependencies {
     compile "commons-dbcp:commons-dbcp:1.4"
     compile "redis.clients:jedis:2.6.0"
     compile "com.typesafe:config:1.2.1"
-    compile "com.mchange:consuela-ethereumj_2.11:0.0.1-SNAPSHOT"
     compile("com.googlecode.json-simple:json-simple:1.1.1") {
         exclude group: 'junit', module: 'junit'
     }
@@ -122,6 +133,7 @@ dependencies {
     testCompile "junit:junit:${junitVersion}"
     testCompile "org.springframework:spring-test:${springVersion}"
     testRuntime "org.bouncycastle:bcprov-jdk15on:1.51"
+    testRuntime "com.mchange:consuela-ethereumj_2.11:0.0.1-SNAPSHOT"
 
     // stuff to bring up an interactive console, see
     // http://stackoverflow.com/questions/22567831/gradle-execute-groovy-interactive-shell-with-project-classpath
@@ -194,6 +206,7 @@ jacocoTestReport {
 def bintrayUsername = project.hasProperty('bintrayUser') ? project.bintrayUser : ''
 def bintrayPassword = project.hasProperty('bintrayKey') ? project.bintrayKey : ''
 def pullRequest = System.getenv('TRAVIS_PULL_REQUEST')
+def branchName = System.getenv('TRAVIS_BRANCH')
 
 artifactory {
     contextUrl = 'http://oss.jfrog.org/artifactory'
@@ -213,7 +226,9 @@ artifactory {
 }
 
 artifactoryPublish.onlyIf {
-    (!pullRequest || pullRequest == 'false') && project.version.endsWith('-SNAPSHOT')
+    (!pullRequest || pullRequest == 'false') &&
+            project.version.endsWith('-SNAPSHOT') &&
+            branchName.startsWith('master')
 }
 
 bintray {
@@ -242,6 +257,8 @@ install {
 }
 
 task publish {
+
+    println "publishing if master current branch: " + branchName
     description = "Publishes snapshots to oss.jfrog.org and releases to Bintray/JCenter"
     dependsOn artifactoryPublish, bintrayUpload
 }

@@ -121,6 +121,7 @@ public class SystemProperties {
     public boolean playVM()                    { return getBoolean( K_PLAY_VM ); }
     public String  projectVersion()            { return getString( K_PROJECT_VERSION ); }
     public boolean recordBlocks()              { return getBoolean( K_RECORD_BLOCKS ); }
+    public boolean redisEnabled()              { return getBoolean( K_REDIS_ENABLED ); }
     public String  samplesDir()                { return getString( K_SAMPLES_DIR ); }
     public int     transactionApproveTimeout() { return getInt( K_TRANSACTION_APPROVE_TIMEOUT ); }
     public int     traceStartBlock()           { return getInt( K_TRACE_STARTBLOCK ); }
@@ -141,8 +142,13 @@ public class SystemProperties {
         String capabilitiesList = getString( K_PEER_CAPABILITIES );
         return Arrays.asList(capabilitiesList.split(","));
     }
+
     public int peerConnectionTimeout() { // configured in seconds, expected in millis
 	return getInt( K_PEER_CONNECTION_TIMEOUT ) * 1000; 
+    }
+
+    public boolean isRedisEnabled() {
+	return redisEnabled();
     }
 
     interface LinePrinter {

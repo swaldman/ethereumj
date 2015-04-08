@@ -8,9 +8,11 @@ subprojects {
     apply plugin: 'java'
 
     group = 'org.ethereum'
-    version = '0.8.1-swaldman-SNAPSHOT'
+    version = '0.8.4-swaldman-SNAPSHOT'
 
     compileJava.options.encoding = 'UTF-8'
+    compileJava.options.compilerArgs << '-XDignore.symbol.file'
+
     compileTestJava.options.encoding = 'UTF-8'
 
     repositories {

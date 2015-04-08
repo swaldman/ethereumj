@@ -68,12 +68,11 @@ public class Block {
 
     public Block(byte[] parentHash, byte[] unclesHash, byte[] coinbase, byte[] logsBloom,
                  byte[] difficulty, long number, long gasLimit,
-                 long gasUsed, long timestamp, byte[] seedHash, byte[] mixHash,
-                 byte[] extraData, byte[] nonce,
+                 long gasUsed, long timestamp, byte[] extraData, byte[] nonce,
                  List<Transaction> transactionsList, List<BlockHeader> uncleList) {
         this.header = new BlockHeader(parentHash, unclesHash, coinbase, logsBloom,
                 difficulty, number, gasLimit, gasUsed,
-                timestamp, seedHash, mixHash, extraData, nonce);
+                timestamp, extraData, nonce);
 
         this.transactionsList = transactionsList;
         if (this.transactionsList == null) {
@@ -207,17 +206,6 @@ public class Block {
         if (!parsed) parseRLP();
         return this.header.getGasUsed();
     }
-
-    public byte[] getSeedHash() {
-        if (!parsed) parseRLP();
-        return this.header.getSeedHash();
-    }
-
-    public byte[] getMixHash() {
-        if (!parsed) parseRLP();
-        return this.header.getMixHash();
-    }
-
 
     public byte[] getExtraData() {
         if (!parsed) parseRLP();
@@ -358,3 +346,4 @@ public class Block {
         return Hex.toHexString(getHash()).substring(0, 6);
     }
 }
+
