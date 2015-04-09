@@ -75,13 +75,13 @@ public class RepositoryImpl implements Repository {
 
         detailsDB = new DatabaseImpl(detailsDS);
         stateDB = new DatabaseImpl(stateDS);
-        worldState = TrieManager.createSimpleTrie(stateDB.getDb());
+        worldState = TrieManager.createTrie(stateDB.getDb());
     }
 
     public RepositoryImpl(String detailsDbName, String stateDbName) {
         detailsDB = new DatabaseImpl(detailsDbName);
         stateDB = new DatabaseImpl(stateDbName);
-        worldState = TrieManager.createSimpleTrie(stateDB.getDb());
+        worldState = TrieManager.createTrie(stateDB.getDb());
     }
 
 
@@ -94,7 +94,7 @@ public class RepositoryImpl implements Repository {
 
         stateDS.init();
         stateDB = new DatabaseImpl(stateDS);
-        worldState = TrieManager.createSimpleTrie(stateDB.getDb());
+        worldState = TrieManager.createTrie(stateDB.getDb());
     }
 
     @Override

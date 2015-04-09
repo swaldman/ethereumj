@@ -113,7 +113,7 @@ public class StateTest {
 
     private Trie generateGenesisState() {
 
-        Trie trie = TrieManager.createSimpleTrie(new MockDB());
+        Trie trie = TrieManager.createTrie(new MockDB());
 
         for (PremineRaw raw : Genesis.getPremine()) {
             AccountState acctState = new AccountState(BigInteger.ZERO,

@@ -74,7 +74,7 @@ public class Genesis extends Block {
                 NUMBER, GAS_LIMIT, GAS_USED, TIMESTAMP,
                 EXTRA_DATA, NONCE, null, null);
 
-        Trie state = TrieManager.createSimpleTrie();
+        Trie state = TrieManager.createTrie();
         // The proof-of-concept series include a development pre-mine, making the state root hash
         // some value stateRoot. The latest documentation should be consulted for the value of the state root.
 

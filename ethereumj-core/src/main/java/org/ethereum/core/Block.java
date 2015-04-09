@@ -279,7 +279,7 @@ public class Block {
 
     private void parseTxs(byte[] expectedRoot, RLPList txTransactions) {
 
-        this.txsState = TrieManager.createSimpleTrie();
+        this.txsState = TrieManager.createTrie();
         for (int i = 0; i < txTransactions.size(); i++) {
             RLPElement transactionRaw = txTransactions.get(i);
             this.transactionsList.add(new Transaction(transactionRaw.getRLPData()));

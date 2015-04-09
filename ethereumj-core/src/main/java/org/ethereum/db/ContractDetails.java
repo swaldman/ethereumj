@@ -33,7 +33,7 @@ public class ContractDetails {
     private boolean dirty = false;
     private boolean deleted = false;
 
-    private Trie storageTrie = TrieManager.createSimpleTrie();
+    private Trie storageTrie = TrieManager.createTrie();
 
     public ContractDetails() {
     }
@@ -96,7 +96,7 @@ public class ContractDetails {
 
     public byte[] getStorageHash() {
 
-        storageTrie = TrieManager.createSimpleTrie();
+        storageTrie = TrieManager.createTrie();
         // calc the trie for root hash
         for (int i = 0; i < storageKeys.size(); ++i) {
             storageTrie.update(storageKeys.get(i).getData(), RLP

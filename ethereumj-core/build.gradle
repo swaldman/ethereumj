@@ -96,6 +96,7 @@ ext {
     springVersion = '4.1.2.RELEASE'
     hibernateVersion = '4.3.7.Final'
     junitVersion = '4.11'
+    consuelaEthereumJVersion = '0.0.2-SNAPSHOT'
 }
 
 dependencies {
@@ -133,7 +134,7 @@ dependencies {
     testCompile "junit:junit:${junitVersion}"
     testCompile "org.springframework:spring-test:${springVersion}"
     testRuntime "org.bouncycastle:bcprov-jdk15on:1.51"
-    testRuntime "com.mchange:consuela-ethereumj_2.11:0.0.1-SNAPSHOT"
+    testRuntime "com.mchange:consuela-ethereumj_2.11:${consuelaEthereumJVersion}"
 
     // stuff to bring up an interactive console, see
     // http://stackoverflow.com/questions/22567831/gradle-execute-groovy-interactive-shell-with-project-classpath
@@ -143,7 +144,7 @@ dependencies {
     }
     console 'org.codehaus.groovy:groovy-groovysh:2.2.+'
     console 'org.bouncycastle:bcprov-jdk15on:1.51'
-    console 'com.mchange:consuela-ethereumj_2.11:0.0.1-SNAPSHOT'
+    console 'com.mchange:consuela-ethereumj_2.11:${consuelaEthereumJVersion}'
 }
 
 javadoc {
