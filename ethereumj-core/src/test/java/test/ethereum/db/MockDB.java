@@ -6,9 +6,11 @@ import org.ethereum.db.ByteArrayWrapper;
 import org.iq80.leveldb.DBException;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+// this class is so completely not thread-safe
 public class MockDB implements KeyValueDataSource {
 
     Map<ByteArrayWrapper, byte[]> storage = new HashMap<>();
@@ -52,12 +54,16 @@ public class MockDB implements KeyValueDataSource {
 
     @Override
     public Set<byte[]> keys() {
-        return null;
+	Set<byte[]> out = new HashSet<>();
+	for( ByteArrayWrapper wrapper : storage.keySet() ) 
+	    out.add( wrapper.getData() );
+	return out;
     }
 
     @Override
     public void updateBatch(Map<byte[], byte[]> rows) {
-
+	for( Map.Entry<byte[],byte[]> entry : rows.entrySet() )
+	    this.put( entry.getKey(), entry.getValue() );
     }
 
     @Override

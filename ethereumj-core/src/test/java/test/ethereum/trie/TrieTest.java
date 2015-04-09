@@ -86,7 +86,7 @@ public class TrieTest {
 
     @Test
     public void testEmptyKey() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update("", dog);
         assertEquals(dog, new String(trie.get("")));
@@ -94,7 +94,7 @@ public class TrieTest {
 
     @Test
     public void testInsertShortString() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update(cat, dog);
         assertEquals(dog, new String(trie.get(cat)));
@@ -102,7 +102,7 @@ public class TrieTest {
 
     @Test
     public void testInsertLongString() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update(cat, LONG_STRING);
         assertEquals(LONG_STRING, new String(trie.get(cat)));
@@ -110,7 +110,7 @@ public class TrieTest {
 
     @Test
     public void testInsertMultipleItems1() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
         trie.update(ca, dude);
         assertEquals(dude, new String(trie.get(ca)));
 
@@ -136,7 +136,7 @@ public class TrieTest {
 
     @Test
     public void testInsertMultipleItems2() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update(cat, dog);
         assertEquals(dog, new String(trie.get(cat)));
@@ -163,7 +163,7 @@ public class TrieTest {
 
     @Test
     public void testUpdateShortToShortString() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update(cat, dog);
         assertEquals(dog, new String(trie.get(cat)));
@@ -174,7 +174,7 @@ public class TrieTest {
 
     @Test
     public void testUpdateLongToLongString() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
         trie.update(cat, LONG_STRING);
         assertEquals(LONG_STRING, new String(trie.get(cat)));
         trie.update(cat, LONG_STRING + "1");
@@ -183,7 +183,7 @@ public class TrieTest {
 
     @Test
     public void testUpdateShortToLongString() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update(cat, dog);
         assertEquals(dog, new String(trie.get(cat)));
@@ -194,7 +194,7 @@ public class TrieTest {
 
     @Test
     public void testUpdateLongToShortString() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update(cat, LONG_STRING);
         assertEquals(LONG_STRING, new String(trie.get(cat)));
@@ -207,7 +207,7 @@ public class TrieTest {
     public void testDeleteShortString1() {
         String ROOT_HASH_BEFORE = "a9539c810cc2e8fa20785bdd78ec36cc1dab4b41f0d531e80a5e5fd25c3037ee";
         String ROOT_HASH_AFTER = "fc5120b4a711bca1f5bb54769525b11b3fb9a8d6ac0b8bf08cbb248770521758";
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update(cat, dog);
         assertEquals(dog, new String(trie.get(cat)));
@@ -225,7 +225,7 @@ public class TrieTest {
     public void testDeleteShortString2() {
         String ROOT_HASH_BEFORE = "a9539c810cc2e8fa20785bdd78ec36cc1dab4b41f0d531e80a5e5fd25c3037ee";
         String ROOT_HASH_AFTER = "b25e1b5be78dbadf6c4e817c6d170bbb47e9916f8f6cc4607c5f3819ce98497b";
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update(ca, dude);
         assertEquals(dude, new String(trie.get(ca)));
@@ -243,7 +243,7 @@ public class TrieTest {
     public void testDeleteShortString3() {
         String ROOT_HASH_BEFORE = "778ab82a7e8236ea2ff7bb9cfa46688e7241c1fd445bf2941416881a6ee192eb";
         String ROOT_HASH_AFTER = "05875807b8f3e735188d2479add82f96dee4db5aff00dc63f07a7e27d0deab65";
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update(cat, dude);
         assertEquals(dude, new String(trie.get(cat)));
@@ -261,7 +261,7 @@ public class TrieTest {
     public void testDeleteLongString1() {
         String ROOT_HASH_BEFORE = "318961a1c8f3724286e8e80d312352f01450bc4892c165cc7614e1c2e5a0012a";
         String ROOT_HASH_AFTER = "63356ecf33b083e244122fca7a9b128cc7620d438d5d62e4f8b5168f1fb0527b";
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update(cat, LONG_STRING);
         assertEquals(LONG_STRING, new String(trie.get(cat)));
@@ -279,7 +279,7 @@ public class TrieTest {
     public void testDeleteLongString2() {
         String ROOT_HASH_BEFORE = "e020de34ca26f8d373ff2c0a8ac3a4cb9032bfa7a194c68330b7ac3584a1d388";
         String ROOT_HASH_AFTER = "334511f0c4897677b782d13a6fa1e58e18de6b24879d57ced430bad5ac831cb2";
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update(ca, LONG_STRING);
         assertEquals(LONG_STRING, new String(trie.get(ca)));
@@ -297,7 +297,7 @@ public class TrieTest {
     public void testDeleteLongString3() {
         String ROOT_HASH_BEFORE = "e020de34ca26f8d373ff2c0a8ac3a4cb9032bfa7a194c68330b7ac3584a1d388";
         String ROOT_HASH_AFTER = "63356ecf33b083e244122fca7a9b128cc7620d438d5d62e4f8b5168f1fb0527b";
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update(cat, LONG_STRING);
         assertEquals(LONG_STRING, new String(trie.get(cat)));
@@ -316,7 +316,7 @@ public class TrieTest {
         String ROOT_HASH_BEFORE = "3a784eddf1936515f0313b073f99e3bd65c38689021d24855f62a9601ea41717";
         String ROOT_HASH_AFTER1 = "60a2e75cfa153c4af2783bd6cb48fd6bed84c6381bc2c8f02792c046b46c0653";
         String ROOT_HASH_AFTER2 = "a84739b4762ddf15e3acc4e6957e5ab2bbfaaef00fe9d436a7369c6f058ec90d";
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update(cat, dog);
         assertEquals(dog, new String(trie.get(cat)));
@@ -349,7 +349,7 @@ public class TrieTest {
         String ROOT_HASH_AFTER1 = "f586af4a476ba853fca8cea1fbde27cd17d537d18f64269fe09b02aa7fe55a9e";
         String ROOT_HASH_AFTER2 = "c59fdc16a80b11cc2f7a8b107bb0c954c0d8059e49c760ec3660eea64053ac91";
 
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
         trie.update(c, LONG_STRING);
         assertEquals(LONG_STRING, new String(trie.get(c)));
 
@@ -372,7 +372,7 @@ public class TrieTest {
     @Test
     public void testDeleteAll() {
         String ROOT_HASH_BEFORE = "a84739b4762ddf15e3acc4e6957e5ab2bbfaaef00fe9d436a7369c6f058ec90d";
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
         assertEquals(ROOT_HASH_EMPTY, Hex.toHexString(trie.getRootHash()));
 
         trie.update(ca, dude);
@@ -388,8 +388,8 @@ public class TrieTest {
 
     @Test
     public void testTrieEquals() {
-        Trie trie1 = TrieManager.createSimpleTrie(mockDb);
-        Trie trie2 = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie1 = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
+        TrieWrapper trie2 = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie1.update(doge, LONG_STRING);
         trie2.update(doge, LONG_STRING);
@@ -405,7 +405,7 @@ public class TrieTest {
     @Ignore
     @Test
     public void testTrieSync() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update(dog, LONG_STRING);
         assertEquals("Expected no data in database", mockDb.getAddedItems(), 0);
@@ -417,7 +417,7 @@ public class TrieTest {
     @Ignore
     @Test
     public void TestTrieDirtyTracking() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieImpl trie = new TrieImpl(mockDb); //XXX: TrieImpl specific API
         trie.update(dog, LONG_STRING);
         assertTrue("Expected trie to be dirty", trie.getCache().isDirty());
 
@@ -431,7 +431,7 @@ public class TrieTest {
 
     @Test
     public void TestTrieReset() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieImpl trie = new TrieImpl(mockDb); //XXX: TrieImpl specific API
 
         trie.update(cat, LONG_STRING);
         assertNotEquals("Expected cached nodes", 0, trie.getCache().getNodes().size());
@@ -443,9 +443,10 @@ public class TrieTest {
 
     @Test
     public void testTrieCopy() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieImpl trie = new TrieImpl(mockDb); //XXX: TrieImpl specific API
+
         trie.update("doe", "reindeer");
-        Trie trie2 = trie.copy();
+        TrieImpl trie2 = trie.copy(); //XXX: TrieImpl specific API
         assertNotEquals(trie.hashCode(), trie2.hashCode()); // avoid possibility that its just a reference copy
         assertEquals(Hex.toHexString(trie.getRootHash()), Hex.toHexString(trie2.getRootHash()));
         assertTrue(trie.equals(trie2));
@@ -453,7 +454,7 @@ public class TrieTest {
 
     @Test
     public void testTrieUndo() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
         trie.update("doe", "reindeer");
         assertEquals("11a0327cfcc5b7689b6b6d727e1f5f8846c1137caaa9fc871ba31b7cce1b703e", Hex.toHexString(trie.getRootHash()));
         trie.sync();
@@ -469,7 +470,7 @@ public class TrieTest {
 
     @Test
     public void testSingleItem() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
         trie.update("A", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         assertEquals("d23786fb4a010da3ce639d66d5e904a11dbc02746d1ce25029e53290cabf28ab", Hex.toHexString(trie.getRootHash()));
@@ -477,7 +478,7 @@ public class TrieTest {
 
     @Test
     public void testDogs() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
         trie.update("doe", "reindeer");
         assertEquals("11a0327cfcc5b7689b6b6d727e1f5f8846c1137caaa9fc871ba31b7cce1b703e", Hex.toHexString(trie.getRootHash()));
 
@@ -490,7 +491,7 @@ public class TrieTest {
 
     @Test
     public void testPuppy() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
         trie.update("do", "verb");
         trie.update("doge", "coin");
         trie.update("horse", "stallion");
@@ -501,7 +502,7 @@ public class TrieTest {
 
     @Test
     public void testEmptyValues() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
         trie.update("do", "verb");
         trie.update("ether", "wookiedoo");
         trie.update("horse", "stallion");
@@ -516,7 +517,7 @@ public class TrieTest {
 
     @Test
     public void testFoo() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
         trie.update("foo", "bar");
         trie.update("food", "bat");
         trie.update("food", "bass");
@@ -526,7 +527,7 @@ public class TrieTest {
 
     @Test
     public void testSmallValues() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update("be", "e");
         trie.update("dog", "puppy");
@@ -536,7 +537,7 @@ public class TrieTest {
 
     @Test
     public void testTesty() {
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update("test", "test");
         assertEquals("85d106d4edff3b7a4889e91251d0a87d7c17a1dda648ebdba8c6060825be23b8", Hex.toHexString(trie.getRootHash()));
@@ -555,7 +556,7 @@ public class TrieTest {
             List<String> randomWords = Arrays.asList(randomDictionary.split(","));
             HashMap<String, String> testerMap = new HashMap<>();
 
-            Trie trie = TrieManager.createSimpleTrie(mockDb);
+	    TrieImpl trie = new TrieImpl(mockDb); //XXX: TrieImpl specific API
             Random generator = new Random();
 
             // Random insertion
@@ -652,7 +653,7 @@ public class TrieTest {
         // *** Part - 1 ***
         // 1. load the data from massive-upload.dmp
         //    which includes deletes/upadtes (5000 operations)
-        Trie trieSingle = TrieManager.createSimpleTrie(mockDb_2);
+        TrieWrapper trieSingle = new TrieWrapper( TrieManager.createSimpleTrie(mockDb_2) );
         for (String aStrData : strData) {
 
             String[] keyVal = aStrData.split("=");
@@ -672,7 +673,7 @@ public class TrieTest {
         // 1. part of the data loaded
         // 2. the trie cache sync to the db
         // 3. the rest of the data loaded with part of the trie not in the cache
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieImpl trie = new TrieImpl(mockDb); //XXX: TrieImpl specific API
 
         for (int i = 0; i < 2000; ++i) {
 
@@ -687,7 +688,7 @@ public class TrieTest {
         trie.cleanCache();
         trie.sync();
 
-        Trie trie2 = TrieManager.createSimpleTrie(mockDb, trie.getRootHash());
+        TrieWrapper trie2 = new TrieWrapper( TrieManager.createSimpleTrie(mockDb, trie.getRootHash()) );
 
         for (int i = 2000; i < strData.size(); ++i) {
 
@@ -713,8 +714,9 @@ public class TrieTest {
             List<String> randomWords = Arrays.asList(randomDictionary.split(","));
             Map<String, String> testerMap = new HashMap<>();
 
-            Trie trie = TrieManager.createSimpleTrie(mockDb);
+
             Random generator = new Random();
+	    TrieImpl trie = new TrieImpl(mockDb); //XXX: TrieImpl specific API
 
             // Random insertion
             for (int i = 0; i < 50000; ++i) {
@@ -743,7 +745,7 @@ public class TrieTest {
                 Assert.assertEquals(mapWord2, treeWord2);
             }
 
-            Trie trie2 = TrieManager.createSimpleTrie(mockDb, trie.getRootHash());
+            TrieWrapper trie2 = new TrieWrapper( TrieManager.createSimpleTrie(mockDb, trie.getRootHash()) );
 
             // Assert the result now
             keys = testerMap.keySet().iterator();
@@ -762,7 +764,7 @@ public class TrieTest {
     @Test
     public void testRollbackTrie() throws URISyntaxException, IOException {
 
-        Trie trieSingle = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trieSingle = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         URL massiveUpload_1 = ClassLoader
                 .getSystemResource("trie/massive-upload.dmp");
@@ -810,10 +812,10 @@ public class TrieTest {
     @Ignore
     @Test
     public void testGetFromRootNode() {
-        Trie trie1 = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie1 = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
         trie1.update(cat, LONG_STRING);
         trie1.sync();
-        Trie trie2 = TrieManager.createSimpleTrie(mockDb, trie1.getRootHash());
+        TrieWrapper trie2 = new TrieWrapper( TrieManager.createSimpleTrie(mockDb, trie1.getRootHash()) );
         assertEquals(LONG_STRING, new String(trie2.get(cat)));
     }
 
@@ -839,7 +841,7 @@ public class TrieTest {
         byte[] val3 = Hex.decode("94412e0c4f0102f3f0ac63f0a125bce36ca75d4e0d");
         byte[] val4 = Hex.decode("01");
 
-        TrieImpl storage = TrieManager.createSimpleTrie(new MockDB());
+        TrieWrapper storage = new TrieWrapper( TrieManager.createSimpleTrie(new MockDB()) );
         storage.update(key1, val1);
         storage.update(key2, val2);
         storage.update(key3, val3);
@@ -883,7 +885,7 @@ public class TrieTest {
 
         // TEST: load trie out of this run up to block#33
         byte[] rootNode = Hex.decode("bb690805d24882bc7ccae6fc0f80ac146274d5b81c6a6e9c882cd9b0a649c9c7");
-        Trie trie = TrieManager.createSimpleTrie(db.getDb(), rootNode);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(db.getDb(), rootNode) );
 
         // first key added in genesis
         byte[] val1 = trie.get(Hex.decode("51ba59315b3a95761d0863b05ccc7a7f54703d99"));
@@ -911,7 +913,7 @@ public class TrieTest {
     // each time dump the entire trie
     public void testSample_1() {
 
-        Trie trie = TrieManager.createSimpleTrie(mockDb);
+        TrieWrapper trie = new TrieWrapper( TrieManager.createSimpleTrie(mockDb) );
 
         trie.update("dog", "puppy");
         String dmp = trie.getTrieDump();
@@ -932,5 +934,31 @@ public class TrieTest {
         Assert.assertEquals("8bd5544747b4c44d1274aa99a6293065fe319b3230e800203317e4c75a770099", Hex.toHexString(trie.getRootHash()));
     }
 
+    static class TrieWrapper implements Trie
+    {
+	Trie inner;
+
+	TrieWrapper(Trie inner)
+	{ this.inner = inner; }
+
+	public byte[] get(byte[] key)                 { return inner.get( key ); }
+	public void update(byte[] key, byte[] value)  { inner.update( key, value ); }
+	public void delete(byte[] key)                { inner.delete( key ); }
+	public byte[] getRootHash()                   { return inner.getRootHash(); } 
+	public void setRoot(byte[] root)              { inner.setRoot( root ); }
+	public void sync()                            { inner.sync(); }
+	public void undo()                            { inner.undo(); }
+	public String getTrieDump()                   { return inner.getTrieDump(); }
+	public boolean validate()                     { return inner.validate(); }
+
+	public boolean equals( Object o )              { return (o instanceof Trie) && Arrays.equals(this.getRootHash(), ((Trie) o).getRootHash()); }
+	public int hashCode()                          { return Arrays.hashCode( this.getRootHash() ); }
+
+	private byte[] b( String s )                   { return s.getBytes( StandardCharsets.UTF_8 ); }
+
+	public byte[] get( String key )                { return this.get( b( key ) ); }
+	public void update( String key, String value ) { this.update( b( key ), b( value ) ); }
+	public void delete( String key )               { this.delete( b( key ) ); }
+    }
 }
 
